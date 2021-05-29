@@ -1,3 +1,4 @@
+
 class SlingShot{
     constructor(bodyA, pointB){
         var options = {
@@ -19,6 +20,7 @@ class SlingShot{
     
     fly(){
         this.sling.bodyA = null;
+        console.log('heelo')
     }
 
     display(){
