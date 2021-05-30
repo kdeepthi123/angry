@@ -7,10 +7,11 @@ var engine, world;
 var box1, pig1,pig3;
 var backgroundImg,platform;
 var bird, slingshot;
-
+var states = 'onSling';
 
 function preload() {
     backgroundImg = loadImage("sprites/bg.png");
+    getData();
 }
 
 function setup(){
@@ -69,16 +70,26 @@ function draw(){
 }
 
 function mouseDragged(){
+    if(states==='onSling'){
     Matter.Body.setPosition(bird.body, {x: mouseX , y: mouseY});
+    }
 }
 
 
 function mouseReleased(){
+    states = 'released';
     slingshot.fly();
 }
 
 function keyPressed(){
     if(keyCode === 32){
         slingshot.attach(bird.body);
+        states = 'onSling';
+        bird.trajectory = []
     }
+}
+
+async function getData(){
+    data = await fetch('http://worldtimeapi.org/api/timezone/Asia/Tokyo')
+    console.log(data);
 }
