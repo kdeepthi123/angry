@@ -9,6 +9,7 @@ var backgroundImg,platform;
 var bird, slingshot;
 var states = 'onSling';
 var bg,mybg;
+var MSG;
 function preload() {
     
     getData();
@@ -70,7 +71,9 @@ function draw(){
     bird.display();
     platform.display();
     //log6.display();
-    slingshot.display();    
+    slingshot.display(); 
+    
+    text(MSG,displayWidth/2,20)
 }
 
 function mouseDragged(){
@@ -94,7 +97,7 @@ function keyPressed(){
 }
 
 async function getData(){
-    data = await fetch('http://worldtimeapi.org/api/timezone/America/Danmarkshavn')
+    data = await fetch('http://worldtimeapi.org/api/timezone/America/Bahia')
     var mydate = await data.json()
     var mytime = mydate.datetime
     hours = mytime.slice(11,13)
@@ -106,5 +109,13 @@ async function getData(){
     bg='sprites/bg2.jpg'
    }
    mybg=loadImage(bg)
-    
+
+   if(hours>6 && hours<12){
+       MSG = ("Good Morning")
+}else if(hours>12 && hours<19)
+{
+MSG = ("Good afternoon");
+}    else{
+    MSG = ("Good Night")
+}
 }
