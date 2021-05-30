@@ -8,9 +8,9 @@ var box1, pig1,pig3;
 var backgroundImg,platform;
 var bird, slingshot;
 var states = 'onSling';
-
+var bg,mybg;
 function preload() {
-    backgroundImg = loadImage("sprites/bg.png");
+    
     getData();
 }
 
@@ -45,7 +45,11 @@ function setup(){
 }
 
 function draw(){
-    background(backgroundImg);
+    if(bg){
+        background(mybg);
+    }
+    
+
     Engine.update(engine);
     //strokeWeight(4);
     box1.display();
@@ -90,6 +94,17 @@ function keyPressed(){
 }
 
 async function getData(){
-    data = await fetch('http://worldtimeapi.org/api/timezone/Asia/Tokyo')
-    console.log(data);
+    data = await fetch('http://worldtimeapi.org/api/timezone/America/Danmarkshavn')
+    var mydate = await data.json()
+    var mytime = mydate.datetime
+    hours = mytime.slice(11,13)
+    console.log(hours)
+   if(hours>6 && hours<18){
+    bg='sprites/bg.png'
+   }
+   else {
+    bg='sprites/bg2.jpg'
+   }
+   mybg=loadImage(bg)
+    
 }

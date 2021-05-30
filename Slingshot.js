@@ -20,7 +20,7 @@ class SlingShot{
     
     fly(){
         this.sling.bodyA = null;
-        console.log('heelo')
+        //console.log('heelo')
     }
 
     display(){
