@@ -90,9 +90,12 @@ function mouseReleased(){
 
 function keyPressed(){
     if(keyCode === 32){
+        Matter.Body.setPosition(bird.body,{x:200,y:50});
+        bird.trajectory = []
         slingshot.attach(bird.body);
         states = 'onSling';
-        bird.trajectory = []
+        
+       
     }
 }
 
@@ -102,6 +105,7 @@ async function getData(){
     var mytime = mydate.datetime
     hours = mytime.slice(11,13)
     console.log(hours)
+    bg='sprites/bg.png'
    if(hours>6 && hours<18){
     bg='sprites/bg.png'
    }
