@@ -1,37 +1,23 @@
 var box;
-
+function preload(){
+  backgroundImg = loadImage("images/snowBackground.png"); 
+  penguinImg = loadAnimation("images/penguin1.png","images/penguin2.png","images/penguin3.png","images/penguin4.png","images/penguin5.png","images/penguin6.png","images/penguin7.png","images/penguin8.png"); 
+  glacierImg = loadImage("images/glacier.jpg"); 
+  polarBearImg = loadImage("images/polarBear.png"); 
+  snowBallImg = loadImage("images/snowBall.jpg");
+}
 function setup() {
-  createCanvas(400,400);
-  box = createSprite(200,200,30,30);
+  createCanvas(windowWidth,windowHeight);
+  penguin = createSprite(150,windowHeight-40,30,30);
+  penguin.addAnimation("player",penguinImg)
 
 }
 
 function draw() 
 {
-   background(30);
+   background(backgroundImg);
 
-  if (keyIsDown(RIGHT_ARROW)) 
-  {
-    box.position.x = box.position.x +5;
-  }
-
-    if (keyIsDown(LEFT_ARROW)) 
-  {
-    box.position.x= box.position.x -5;
-    
-  }
  
-    if (keyIsDown(UP_ARROW)) 
-  {
-    box.position.y = box.position.y - 5;
-   
-  }
-
-  if (keyIsDown(DOWN_ARROW)) 
-  {
-    box.position.y = box.position.y + 5;
-  }
-
   drawSprites();
 }
 
