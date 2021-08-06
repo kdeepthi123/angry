@@ -21,12 +21,20 @@ function preload(){
   scoreImg = loadImage("images/scoreImg.png");
   coinImg = loadImage("images/coinImg.png");
   gameOverImg = loadImage("images/gameOverImg.png");
+  goldCoinImg = loadImage("images/goldCoin.png");
 }
 
 function setup() {
   createCanvas(windowWidth,windowHeight);
-
-  ground = createSprite(windowWidth/2,680,windowWidth * 2,160);
+  
+  backgroundSprite = createSprite(windowWidth/2,windowHeight/2,windowWidth * 3,windowHeight)
+  backgroundSprite.addImage(backgroundImg)
+  backgroundSprite.velocityX = -3;
+  backgroundSprite.scale = 2;
+  
+  groundHeight = windowHeight * 15/100
+  ground = createSprite(windowWidth/2,windowHeight - groundHeight,windowWidth * 2, groundHeight * 2);
+  ground.velocityX = -3;
   ground.shapeColor = "#9ED8F0";
   ground.visible = false;
 
@@ -73,8 +81,14 @@ function setup() {
   //gameOver.scale = 1.3;
 }
 function draw(){
-  background(backgroundImg);
-
+  background(255);
+  
+  if(backgroundSprite.x < 820){
+    backgroundSprite.x = windowWidth/2;
+  }
+  if(ground.x < 0){
+    ground.x = windowWidth/2;
+  }
 if(gameState === MENU){
 
   if(mousePressedOver(start)){
@@ -106,6 +120,7 @@ if(gameState === MENU){
     backButton.visible = false;
   }
 }
+drawSprites();
 
 if(gameState === PLAY){
   textSize(60);
@@ -116,17 +131,34 @@ if(gameState === PLAY){
   textSize(60);
   fill("#000000");
   text(coinsCollected,200,118);
-}
 
+  spawnCoins();
+
+  if(keyDown(UP_ARROW)){
+    penguin.y = penguin.y - 5;
+  }
+  if(keyDown(DOWN_ARROW)){
+    penguin.y = penguin.y + 5;
+  }
+}
+console.log(penguin.y)
 if(gameState === END){
   //Game Over text image
   //Restart button
   //Home button
 }
 
-  drawSprites();
-}
 
+}
+function spawnCoins(){
+  if(frameCount%80 === 0){
+    coinSprite = createSprite(random(windowWidth, windowWidth + 200),random(windowHeight - 300, windowHeight),20,20)
+    coinSprite.addImage(goldCoinImg)
+    coinSprite.velocityX = random(-6,-2)
+    coinSprite.lifetime = windowWidth
+    coinSprite.scale = 0.1;
+  }
+}
 
 
 
