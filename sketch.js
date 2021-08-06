@@ -22,6 +22,7 @@ function preload(){
   coinImg = loadImage("images/coinImg.png");
   gameOverImg = loadImage("images/gameOverImg.png");
   goldCoinImg = loadImage("images/goldCoin.png");
+  
 }
 
 function setup() {
@@ -133,7 +134,7 @@ if(gameState === PLAY){
   text(coinsCollected,200,118);
 
   spawnCoins();
-
+  spawnObstacles();
   if(keyDown(UP_ARROW)){
     penguin.y = penguin.y - 5;
   }
@@ -160,5 +161,28 @@ function spawnCoins(){
   }
 }
 
-
+function spawnObstacles(){
+var rand =Math.round(random(1,2))
+var interval = Math.round(random(1,4))
+switch(interval){
+  case 1: frameVal = 100;
+  break;
+  case 2: frameVal = 200;
+  break;
+  case 3: frameVal = 70;
+  break;
+  case 4: frameVal = 120;
+  break;
+}
+if(frameCount%frameVal===0){
+  var obstacle = createSprite(windowWidth,random(windowHeight - 300, windowHeight))
+  if(rand === 1){
+    obstacle.addImage(glacierImg)
+  }
+  else if(rand === 2){
+    obstacle.addImage(polarBearImg)
+  }
+}
+obstacle.velocityX =  random(-6,-2);
+}
 
