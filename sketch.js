@@ -83,7 +83,8 @@ function setup() {
   coin2.visible = false;
 
   coinGroup = new Group();
-
+  ObstaclesGroup=new Group();
+  snowGroup = new Group();
   //gameOver = createSprite(windowWidth/2,windowHeight/3);
   //gameOver.addImage("gameOverImg",gameOverImg);
   //gameOver.scale = 1.3;
@@ -147,8 +148,13 @@ if(gameState === PLAY){
 
   spawnCoins();
   spawnObstacles();
-  
-
+  if(keyDown('s')){
+    spawnSnow();
+  }
+  if(ObstaclesGroup.isTouching(snowGroup)){
+    ObstaclesGroup.destroyEach()
+    coinsCollected = coinsCollected+1;
+  }
   if(keyWentDown(UP_ARROW)){
     penguin.y = penguin.y - 5;
     penguin.changeAnimation("up",penguinUpImg)
@@ -204,9 +210,17 @@ if(frameCount%frameVal===0){
   }
   else if(rand === 2){
     obstacle.addImage(polarBearImg)
+    ObstaclesGroup.add(obstacle)
   }
   obstacle.velocityX =  random(-6,-2);
 }
 
+}
+
+function spawnSnow(){
+  var snow=createSprite(penguin.x,penguin.y);
+  snow.addImage(snowBallImg);
+  snow.velocityX=4;
+  snowGroup.add(snow)
 }
 
