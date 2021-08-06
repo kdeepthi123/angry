@@ -4,6 +4,7 @@ var END = 2;
 var gameState = MENU;
 var score = 0;
 var coinsCollected = 0;
+var coinGroup;
 
 function preload(){
   backgroundImg = loadImage("images/snowBackground.png"); 
@@ -23,6 +24,8 @@ function preload(){
   gameOverImg = loadImage("images/gameOverImg.png");
   goldCoinImg = loadImage("images/goldCoin.png");
   
+  penguinUpImg = loadAnimation("images/penguinDown_adobespark.png");
+  penguinDownImg = loadAnimation("images/penguinUp_adobespark.png");
 }
 
 function setup() {
@@ -41,6 +44,8 @@ function setup() {
 
   penguin = createSprite(150,windowHeight-100,30,30);
   penguin.addAnimation("player",penguinImg);
+  penguin.addAnimation("up",penguinUpImg);
+  penguin.addAnimation("down",penguinDownImg);
   penguin.scale = 0.8;
   penguin.visible = false;
 
@@ -76,6 +81,8 @@ function setup() {
   coin2.addImage("coinImg",coinImg);
   coin2.scale = 0.8;
   coin2.visible = false;
+
+  coinGroup = new Group();
 
   //gameOver = createSprite(windowWidth/2,windowHeight/3);
   //gameOver.addImage("gameOverImg",gameOverImg);
@@ -133,14 +140,29 @@ if(gameState === PLAY){
   fill("#000000");
   text(coinsCollected,200,118);
 
+  if(coinGroup.isTouching(penguin)){
+    coinsCollected = coinsCollected + 1;
+    coinGroup.destroyEach();
+  }
+
   spawnCoins();
   spawnObstacles();
-  if(keyDown(UP_ARROW)){
+  
+
+  if(keyWentDown(UP_ARROW)){
     penguin.y = penguin.y - 5;
+    penguin.changeAnimation("up",penguinUpImg)
+    penguin.scale = 0.25;
   }
-  if(keyDown(DOWN_ARROW)){
+  if(keyWentDown(DOWN_ARROW)){
     penguin.y = penguin.y + 5;
+    penguin.changeAnimation("down",penguinDownImg)
+    penguin.scale = 0.25;
   }
+  if(keyWentUp(DOWN_ARROW)||keyWentUp(UP_ARROW)){
+    penguin.changeAnimation("penguin",penguinImg);
+  }
+
 }
 console.log(penguin.y)
 if(gameState === END){
@@ -152,12 +174,13 @@ if(gameState === END){
 
 }
 function spawnCoins(){
-  if(frameCount%80 === 0){
+  if(frameCount%130 === 0){
     coinSprite = createSprite(random(windowWidth, windowWidth + 200),random(windowHeight - 300, windowHeight),20,20)
     coinSprite.addImage(goldCoinImg)
-    coinSprite.velocityX = random(-6,-2)
+    coinSprite.velocityX = random(-10,-4)
     coinSprite.lifetime = windowWidth
     coinSprite.scale = 0.1;
+    coinGroup.add(coinSprite);
   }
 }
 
