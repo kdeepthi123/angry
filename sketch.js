@@ -9,9 +9,9 @@ var coinGroup;
 function preload(){
   backgroundImg = loadImage("images/snowBackground.png"); 
   penguinImg = loadAnimation("images/penguin1.png","images/penguin2.png","images/penguin3.png","images/penguin4.png","images/penguin5.png","images/penguin6.png","images/penguin7.png","images/penguin8.png"); 
-  glacierImg = loadImage("images/glacier.jpg"); 
-  polarBearImg = loadImage("images/polarBear.png"); 
-  snowBallImg = loadImage("images/snowBall.jpg");
+  glacierImg = loadImage("images/glacier.png"); 
+  polarBearImg = loadImage("images/polarBear2_adobespark.png"); 
+  snowBallImg = loadImage("images/snowBall_adobespark.png");
   startImg = loadImage("images/startbutton.png");
   restartImg = loadImage("images/restartbutton.png");
   titleImg = loadImage("images/APenguin'sQuestTitle2.png");
@@ -205,7 +205,8 @@ if(frameCount%frameVal===0){
   else if(rand === 2){
     obstacle.addImage(polarBearImg)
   }
+  obstacle.velocityX =  random(-6,-2);
 }
-obstacle.velocityX =  random(-6,-2);
+
 }
 
